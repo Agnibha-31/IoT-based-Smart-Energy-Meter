@@ -1,1490 +1,606 @@
-# ⚡ Smart Meter IoT Dashboard
-
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-3178C6?logo=typescript)
-![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js)
-![Status](https://img.shields.io/badge/status-production-success)
+# Smart Meter IoT Dashboard
 
-**A production-ready, full-stack IoT dashboard for real-time energy monitoring with ESP32 hardware integration**
+### From connected electrical measurements to live insight, cost awareness, and exportable energy data
 
-[Live Demo](https://iot-based-smart-meter-dashboard.vercel.app) • [Backend API](https://iot-based-smart-meter-dashboard-backend.onrender.com) • [Report Bug](https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard/issues) • [Request Feature](https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard/issues)
+[![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.2-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.19-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-active-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![ESP32](https://img.shields.io/badge/ESP32-ready-E7352C?logo=espressif&logoColor=white)](https://www.espressif.com/en/products/socs/esp32)
+[![Dataset](https://img.shields.io/badge/Recorded%20dataset-5%2C000%20readings-16A34A)](Smart%20Meter%20Domestic%20Dataset.csv)
+[![Last commit](https://img.shields.io/github/last-commit/Agnibha-31/Smart-Meter-IoT)](https://github.com/Agnibha-31/Smart-Meter-IoT/commits/main)
+
+[**Open the live dashboard**](https://iot-based-smart-meter-dashboard.vercel.app) ·
+[**See the visual tour**](#dashboard-tour) ·
+[**Explore the dataset**](Smart%20Meter%20Domestic%20Dataset.csv) ·
+[**View the source**](https://github.com/Agnibha-31/Smart-Meter-IoT)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+**Smart Meter IoT** is a full-stack energy-monitoring project that turns time-stamped electrical readings into a clear, responsive dashboard. It helps a user follow voltage, current, power, energy, frequency, power factor, electricity cost, device status, and historical trends from one interface.
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Screenshots](#-screenshots)
-- [Getting Started](#-getting-started)
-- [Configuration](#-configuration)
-- [ESP32 Integration](#-esp32-integration)
-- [Deployment](#-deployment)
-- [API Documentation](#-api-documentation)
-- [Internationalization](#-internationalization)
-- [Contributing](#-contributing)
-- [License](#-license)
+The repository brings together the dashboard, REST API, live event stream, PostgreSQL data layer, ESP32 connection workflow, recorded project dataset, export tools, and complete screen gallery.
 
----
+## Explore in 60 seconds
 
-## 🎯 Overview
+| 5,000 readings | 1-minute sampling | 20 data fields |
+|:---:|:---:|:---:|
+| **83 h 19 min** of recorded data | **11** dashboard views | **CSV + XLSX** export |
 
-The **Smart Meter IoT Dashboard** is a comprehensive, production-ready web application for real-time energy monitoring and analytics. It seamlessly integrates with ESP32 hardware devices to collect, process, and visualize electrical parameters including voltage, current, power, energy consumption, and frequency.
+**Choose your path:**
 
-Built with modern web technologies and designed for scalability, this dashboard provides:
-- **Real-time monitoring** of electrical parameters via Server-Sent Events (SSE)
-- **Advanced analytics** with customizable time ranges and aggregations
-- **Multi-language support** with 21 languages for global accessibility
-- **Cloud-native architecture** deployed on Vercel (frontend) and Render (backend)
-- **Professional UI/UX** with dark/light themes and responsive design
-- **Secure authentication** with JWT-based access control
-- **Data export** capabilities (CSV, Excel formats)
-- **IoT device management** with ESP32 firmware integration
+- Want to understand the idea? Start with [How it works](#how-it-works).
+- Want to see the interface? Jump to the [Dashboard tour](#dashboard-tour).
+- Want to analyse the measurements? Open the [Recorded dataset](#recorded-project-dataset).
+- Want to connect or develop it? Continue to [Live data and ESP32](#live-data-and-esp32) and [Quick start](#quick-start).
 
-### 🎯 Use Cases
+## How it works
 
-- ✅ Industrial energy monitoring and management
-- ✅ Smart home power consumption tracking
-- ✅ Renewable energy system monitoring
-- ✅ Electrical load analysis and optimization
-- ✅ Power quality assessment
-- ✅ Energy cost estimation and budgeting
-
----
-
-## ✨ Features
-
-### 🔐 Authentication & Authorization
-- Secure JWT-based authentication system
-- Role-based access control (Admin, Operator, Viewer)
-- Password hashing with bcrypt (10+ salt rounds)
-- Automatic token refresh mechanism
-- Session management with secure cookies
-
-### 📊 Real-Time Monitoring
-- **Live Data Streaming:** Server-Sent Events (SSE) for instant updates
-- **Key Metrics:**
-  - Voltage (V) - RMS voltage measurement
-  - Current (A) - RMS current measurement
-  - Real Power (kW) - Active power consumption
-  - Apparent Power (kVA) - Total power
-  - Reactive Power (kVAr) - Reactive component
-  - Power Factor - Efficiency indicator (0-1)
-  - Energy (kWh) - Cumulative consumption
-  - Frequency (Hz) - AC frequency (50/60 Hz detection)
-- **Visual Indicators:** Real-time charts and gauges
-- **Data Refresh:** Configurable intervals (5s, 10s, 30s, 1m, 5m)
-
-### 📈 Advanced Analytics
-- **Time-Series Visualization:** Interactive charts powered by Recharts
-- **Aggregation Periods:** Hourly, daily, weekly, monthly views
-- **Statistical Analysis:**
-  - Peak values (maximum consumption periods)
-  - Average consumption patterns
-  - Minimum usage baselines
-  - Load factor calculations
-  - Distribution histograms
-- **Custom Date Ranges:** Flexible time period selection
-- **Trend Analysis:** Identify usage patterns and anomalies
-
-### 💰 Cost Management
-- **Real-Time Cost Calculation:** Instant cost estimation based on tariff
-- **Configurable Tariff Rates:** Set custom electricity rates per kWh
-- **Currency Support:** 150+ currencies with real-time exchange rates
-- **Cumulative Billing:** Track costs over various time periods
-- **Budget Alerts:** Configurable notifications for spending thresholds
-
-### 📥 Data Export & Reporting
-- **Export Formats:**
-  - CSV (Comma-Separated Values)
-  - Excel (.xlsx) with formatted sheets
-- **Customizable Reports:**
-  - Select specific time ranges
-  - Choose data granularity
-  - Filter by device or metric
-- **Automated Exports:** Schedule regular report generation
-- **Data Retention:** Configurable storage periods (1 week to forever)
-
-### 🌍 Internationalization (i18n)
-Complete translation support for **21 languages**:
-- 🇺🇸 English (en)
-- 🇯🇵 Japanese (ja)
-- 🇨🇳 Chinese Simplified (zh)
-- 🇪🇸 Spanish (es)
-- 🇫🇷 French (fr)
-- 🇩🇪 German (de)
-- 🇮🇹 Italian (it)
-- 🇵🇹 Portuguese (pt)
-- 🇷🇺 Russian (ru)
-- 🇰🇷 Korean (ko)
-- 🇸🇦 Arabic (ar)
-- 🇮🇳 Hindi (hi)
-- 🇧🇩 Bengali (bn)
-- 🇹🇭 Thai (th)
-- 🇻🇳 Vietnamese (vi)
-- 🇹🇷 Turkish (tr)
-- 🇵🇱 Polish (pl)
-- 🇳🇱 Dutch (nl)
-- 🇸🇪 Swedish (sv)
-- 🇩🇰 Danish (da)
-- 🇳🇴 Norwegian (no)
-- 🇫🇮 Finnish (fi)
-
-### 🎨 User Interface
-- **Modern Design:** Clean, professional interface with shadcn/ui components
-- **Theme Support:**
-  - Dark mode (default)
-  - Light mode
-  - Auto (system preference)
-- **Responsive Layout:** Optimized for mobile, tablet, and desktop
-- **Accessibility:** WCAG 2.1 AA compliant
-- **Loading States:** Skeleton screens and smooth transitions
-- **Error Handling:** User-friendly error messages and recovery
-
-### 🔧 Settings & Customization
-- **User Preferences:**
-  - Display language
-  - Theme selection
-  - Timezone configuration
-  - Currency selection
-  - Tariff rate customization
-- **App Preferences:**
-  - Auto-save settings
-  - Data refresh rate
-  - Notification preferences
-- **Data Management:**
-  - Data retention policies
-  - Export history
-  - Database cleanup tools
-
-### 🔌 IoT Device Integration
-- **ESP32 Support:** Native integration with ESP32 microcontrollers
-- **Communication Protocol:** HTTP REST API with JSON payloads
-- **Authentication:** API key-based device authentication
-- **Data Format:** Standardized sensor data structure
-- **Frequency Detection:** Automatic 50Hz/60Hz AC frequency detection
-- **Error Handling:** Retry logic and connection recovery
-- **Remote Monitoring:** Cloud-based access from any network
-
-### 🛡️ Security Features
-- **Password Security:** bcrypt hashing with 10+ salt rounds
-- **JWT Tokens:** Short-lived access tokens (15min) + refresh tokens (7 days)
-- **CORS Protection:** Whitelist-based cross-origin requests
-- **Rate Limiting:** Protection against brute force attacks
-- **Input Validation:** Zod schema validation for all inputs
-- **SQL Injection Prevention:** Parameterized queries via SQL.js
-- **XSS Protection:** Sanitized user inputs
-- **HTTPS Only:** Enforced SSL/TLS in production
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **React** | 18.3.1 | UI framework |
-| **TypeScript** | 5.3.3 | Type safety |
-| **Vite** | 6.0.0 | Build tool & dev server |
-| **Tailwind CSS** | 3.4.1 | Utility-first styling |
-| **shadcn/ui** | Latest | Component library |
-| **Radix UI** | Latest | Headless UI primitives |
-| **Recharts** | 2.15.2 | Data visualization |
-| **Framer Motion** | 11.0.0 | Animations |
-| **Socket.io Client** | 4.8.1 | Real-time communication |
-| **Sonner** | 2.0.3 | Toast notifications |
-| **Lucide React** | 0.487.0 | Icon library |
-
-### Backend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Node.js** | 20+ | Runtime environment |
-| **Express** | 4.19.2 | Web framework |
-| **SQL.js** | 1.10.3 | SQLite database (WASM) |
-| **JWT** | 9.0.2 | Authentication tokens |
-| **bcryptjs** | 2.4.3 | Password hashing |
-| **Zod** | 3.22.4 | Schema validation |
-| **ExcelJS** | 4.4.0 | Excel export |
-| **csv-stringify** | 6.5.0 | CSV export |
-| **Luxon** | 3.4.4 | Date/time handling |
-| **Morgan** | 1.10.0 | HTTP logging |
-| **CORS** | 2.8.5 | Cross-origin requests |
-
-### IoT Hardware
-| Component | Specification |
-|-----------|---------------|
-| **Microcontroller** | ESP32 Dev Module |
-| **Voltage Sensor** | ZMPT101B (AC voltage module) |
-| **Current Sensor** | SCT-013 (Current transformer) |
-| **Libraries** | EmonLib, HTTPClient, WiFi, Blynk |
-| **Communication** | WiFi (2.4GHz) + HTTPS |
-
-### Cloud Infrastructure
-| Service | Platform | Purpose |
-|---------|----------|---------|
-| **Frontend Hosting** | Vercel | Static site deployment |
-| **Backend Hosting** | Render.com | Node.js server (750hrs/month free) |
-| **Database** | SQLite (SQL.js) | Persistent storage (1GB disk) |
-| **CDN** | Vercel Edge Network | Global content delivery |
-| **SSL/TLS** | Auto-provisioned | HTTPS encryption |
-
-### Development Tools
-| Tool | Purpose |
-|------|---------|
-| **Git & GitHub** | Version control |
-| **ESLint** | Code linting |
-| **Prettier** | Code formatting |
-| **TypeScript Compiler** | Type checking |
-| **Nodemon** | Backend hot reload |
-| **Vite Dev Server** | Frontend hot reload |
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         USER INTERFACE                          │
-│  (React + TypeScript + Tailwind CSS + shadcn/ui)              │
-│                                                                 │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐         │
-│  │Dashboard │ │Analytics │ │ Settings │ │  Export  │         │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘         │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              │ HTTPS + SSE
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      BACKEND API SERVER                         │
-│              (Express + Node.js + SQL.js)                      │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │ REST API Endpoints                                        │ │
-│  │  • /api/auth/*     - Authentication                       │ │
-│  │  • /api/readings/* - Sensor data CRUD                     │ │
-│  │  • /api/analytics/*- Aggregations & stats                 │ │
-│  │  • /api/export/*   - CSV/Excel generation                 │ │
-│  │  • /api/devices/*  - Device management                    │ │
-│  │  • /api/stream     - Server-Sent Events                   │ │
-│  └──────────────────────────────────────────────────────────┘ │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │ Middleware                                                │ │
-│  │  • JWT Authentication                                     │ │
-│  │  • CORS Protection                                        │ │
-│  │  • Input Validation (Zod)                                 │ │
-│  │  • Rate Limiting                                          │ │
-│  │  • Error Handling                                         │ │
-│  └──────────────────────────────────────────────────────────┘ │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │ Services                                                  │ │
-│  │  • authService     - User management                      │ │
-│  │  • readingService  - Data processing                      │ │
-│  │  • analyticsService- Aggregations                         │ │
-│  │  • deviceService   - IoT device management                │ │
-│  └──────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              │ SQL Queries
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      SQLite DATABASE                            │
-│                    (SQL.js - WASM-based)                       │
-│                                                                 │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐         │
-│  │  users   │ │ devices  │ │ readings │ │ exports  │         │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘         │
-│                                                                 │
-│  Size: 128 KB → Auto-grows to TB range                        │
-│  Mode: WAL (Write-Ahead Logging)                              │
-└─────────────────────────────────────────────────────────────────┘
-                              ▲
-                              │ HTTPS POST
-                              │ (JSON payload)
-┌─────────────────────────────────────────────────────────────────┐
-│                      ESP32 IoT DEVICE                           │
-│              (ESP32 + EmonLib + Sensors)                       │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │ Sensors                                                   │ │
-│  │  • ZMPT101B (Voltage)  → Pin 34                          │ │
-│  │  • SCT-013 (Current)   → Pin 35                          │ │
-│  │  • Frequency Detection → Zero-crossing                   │ │
-│  └──────────────────────────────────────────────────────────┘ │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │ Data Processing                                           │ │
-│  │  • Voltage RMS calculation                                │ │
-│  │  • Current RMS calculation                                │ │
-│  │  • Power = V × I                                          │ │
-│  │  • Energy accumulation                                    │ │
-│  │  • Frequency: 50Hz/60Hz detection                         │ │
-│  └──────────────────────────────────────────────────────────┘ │
-│                                                                 │
-│  Transmission: Every 5 seconds via WiFi                       │
-│  Authentication: x-api-key header                             │
-└─────────────────────────────────────────────────────────────────┘
-
-DATA FLOW:
-1. ESP32 reads sensors → Calculates metrics → Sends JSON via HTTPS
-2. Backend validates → Stores in database → Broadcasts via SSE
-3. Frontend receives → Updates UI → Displays real-time data
+```mermaid
+flowchart TD
+    A["Smart meter or ESP32"] -->|"JSON reading + device API key"| B["Express REST API"]
+    B --> C["Validation and electrical calculations"]
+    C --> D[("PostgreSQL")]
+    D --> E["Analytics, cost and exports"]
+    B -->|"Server-Sent Event"| F["React dashboard"]
+    E --> F
 ```
 
-### Database Schema
+Every reading follows the same easy-to-understand journey:
 
-```sql
--- Users table (authentication)
-CREATE TABLE users (
-  id TEXT PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
-  password_hash TEXT NOT NULL,
-  name TEXT,
-  role TEXT DEFAULT 'operator',
-  timezone TEXT DEFAULT 'UTC',
-  language TEXT DEFAULT 'en',
-  currency TEXT DEFAULT 'USD',
-  location TEXT DEFAULT 'US-NY',
-  base_tariff REAL DEFAULT 6.5,
-  theme TEXT DEFAULT 'dark',
-  notifications TEXT,
-  autosave INTEGER DEFAULT 0,
-  refresh_rate INTEGER DEFAULT 5,
-  data_retention TEXT DEFAULT '1year',
-  created_at INTEGER NOT NULL,
-  updated_at INTEGER NOT NULL
-);
+1. **Measure** — a connected device supplies electrical values such as voltage, current, power, energy, frequency, and power factor.
+2. **Authenticate** — the backend identifies the device through its `x-api-key`.
+3. **Validate and enrich** — input validation and electrical relationships produce a consistent reading.
+4. **Store** — PostgreSQL keeps users, devices, readings, and export history.
+5. **Update live** — the browser receives a Server-Sent Event without requiring a manual page refresh.
+6. **Understand and export** — the dashboard converts readings into trends, summaries, costs, and downloadable files.
 
--- Devices table (IoT device registry)
-CREATE TABLE devices (
-  id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
-  api_key TEXT UNIQUE NOT NULL,
-  timezone TEXT DEFAULT 'UTC',
-  location TEXT DEFAULT 'US-NY',
-  created_at INTEGER NOT NULL,
-  updated_at INTEGER NOT NULL,
-  last_seen INTEGER
-);
+## What can the dashboard do?
 
--- Readings table (sensor data)
-CREATE TABLE readings (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  device_id TEXT NOT NULL,
-  captured_at INTEGER NOT NULL,
-  voltage REAL,
-  current REAL,
-  real_power_kw REAL,
-  apparent_power_kva REAL,
-  reactive_power_kvar REAL,
-  energy_kwh REAL,
-  total_energy_kwh REAL,
-  frequency REAL,
-  power_factor REAL,
-  metadata TEXT,
-  created_at INTEGER NOT NULL,
-  FOREIGN KEY (device_id) REFERENCES devices(id)
-);
+| Capability | What the user sees |
+|---|---|
+| **Live overview** | Latest electrical values, device status, summary cards, trends, weather context, and quick navigation |
+| **Voltage and current monitoring** | Average, minimum, peak, RMS, variation, load factor, and time-series behaviour |
+| **Power analysis** | Real, apparent, and reactive power; power factor; peak demand; distribution; and trend views |
+| **Energy intelligence** | Interval and cumulative energy, efficiency indicators, consumption patterns, and time-based comparisons |
+| **Cost calculation** | Tariff-aware cost totals, daily/monthly projections, peak-period impact, and saving opportunities |
+| **Analytics** | Historical bucketing, selectable periods, summary values, chart exploration, and automated observations |
+| **Data management** | Metric selection, date ranges, sampling intervals, preview, CSV/XLSX export, retention, and deletion controls |
+| **Device configuration** | Per-user devices, API-key management, endpoint details, sample payloads, and an ESP32 starter sketch |
+| **Personalisation** | Theme, refresh rate, notifications, language, currency, time zone, location, tariff, and account preferences |
 
--- Exports table (data export tracking)
-CREATE TABLE exports (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  format TEXT NOT NULL,
-  device_id TEXT,
-  from_epoch INTEGER,
-  to_epoch INTEGER,
-  status TEXT DEFAULT 'pending',
-  file_path TEXT,
-  file_size INTEGER,
-  created_at INTEGER NOT NULL,
-  completed_at INTEGER,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
+## Dashboard tour
 
--- Indexes for performance
-CREATE INDEX idx_readings_device_time ON readings(device_id, captured_at);
+Every screenshot stored in `Dashboard View/` is embedded below, so the complete interface can be explored without opening image files individually.
+
+### 1. Create an account and enter the dashboard
+
+The entry screen provides a focused registration and sign-in experience before loading user-specific devices, settings, and measurements.
+
+<p align="center">
+  <img src="Dashboard%20View/SignUp%20Page.png" alt="Smart Meter IoT account registration and sign-in page" width="900">
+</p>
+
+### 2. Understand the system at a glance
+
+The overview brings the most useful information together: live measurements, consumption summaries, trends, device state, and supporting context.
+
+<p align="center">
+  <img src="Dashboard%20View/Data%20Overview%20Page.png" alt="Smart Meter IoT data overview dashboard" width="900">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>3. Voltage monitoring</strong><br><br>
+      Follow average, high, and low voltage behaviour over time and recognise unusual movement quickly.<br><br>
+      <img src="Dashboard%20View/Voltage%20Data%20Page.png" alt="Voltage monitoring page with voltage summaries and time-series charts" width="100%">
+    </td>
+    <td width="50%" valign="top">
+      <strong>4. Current monitoring</strong><br><br>
+      Explore current demand, RMS behaviour, load factor, peaks, and the way connected loads change over time.<br><br>
+      <img src="Dashboard%20View/Current%20Data%20Page.png" alt="Current monitoring page with current and load-factor analytics" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>5. Power analysis</strong><br><br>
+      Compare real, apparent, and reactive power together with power factor, demand, and distribution views.<br><br>
+      <img src="Dashboard%20View/Power%20Data%20Page.png" alt="Power analysis page with power values, distribution, and trends" width="100%">
+    </td>
+    <td width="50%" valign="top">
+      <strong>6. Energy monitoring</strong><br><br>
+      Understand interval consumption, cumulative energy, efficiency, usage patterns, and historical change.<br><br>
+      <img src="Dashboard%20View/Energy%20Data%20Page.png" alt="Energy monitoring page with consumption and efficiency charts" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>7. Data analytics</strong><br><br>
+      Select periods and metrics, inspect historical patterns, and turn large reading sets into understandable summaries.<br><br>
+      <img src="Dashboard%20View/Data%20Analytics%20Page.png" alt="Data analytics page with historical charts and summary metrics" width="100%">
+    </td>
+    <td width="50%" valign="top">
+      <strong>8. Cost calculation</strong><br><br>
+      Translate energy use into tariff-aware costs, projections, peak-period impact, and practical saving insight.<br><br>
+      <img src="Dashboard%20View/Cost%20Calculation%20Page.png" alt="Electricity cost calculation and projection page" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>9. Data management</strong><br><br>
+      Choose metrics, time ranges, and sampling rates; preview the result; then export it as CSV or Excel.<br><br>
+      <img src="Dashboard%20View/Data%20Management%20Page.png" alt="Smart-meter data management, preview, and export page" width="100%">
+    </td>
+    <td width="50%" valign="top">
+      <strong>10. Device configuration</strong><br><br>
+      Create and manage a meter, obtain its API key, inspect its endpoint, and generate ESP32 connection code.<br><br>
+      <img src="Dashboard%20View/Device%20Configuration%20Page.png" alt="ESP32 smart-meter device configuration page" width="100%">
+    </td>
+  </tr>
+</table>
+
+### 11. Personalise the experience
+
+Settings bring language, location, time zone, currency, tariff, display, refresh, notification, retention, and account preferences into one place.
+
+<p align="center">
+  <img src="Dashboard%20View/Settings%20Page.png" alt="Smart Meter IoT personal and application settings page" width="900">
+</p>
+
+## Recorded project dataset
+
+The repository includes [`Smart Meter Domestic Dataset.csv`](Smart%20Meter%20Domestic%20Dataset.csv), containing **5,000 ordered readings** from project meter `meter-001`. The file covers electrical behaviour, energy accumulation, tariff periods, cost, load state, timestamps, and recording context.
+
+### Dataset snapshot
+
+| Property | Verified value |
+|---|---:|
+| Records | 5,000 |
+| Columns | 20 |
+| Sampling interval | 60 seconds |
+| UTC coverage | 31 July 2026, 17:31 → 4 August 2026, 04:50 |
+| IST coverage | 31 July 2026, 23:01 → 4 August 2026, 10:20 |
+| Total duration | 83 hours 19 minutes |
+| Missing cells | 0 |
+| Duplicate complete rows | 0 |
+| Duplicate ISO timestamps | 0 |
+| Quality flag | `Normal` for all 5,000 readings |
+| Sum of interval energy | 64.353517 kWh |
+| Sum of interval cost | ₹374.415060 |
+
+### What range does the data cover?
+
+| Measurement | Minimum | Mean | Maximum |
+|---|---:|---:|---:|
+| Voltage | 207.209 V | 232.584 V | 248.230 V |
+| Current | 0.542 A | 3.548 A | 10.639 A |
+| Real power | 0.1187 kW | 0.7722 kW | 2.2059 kW |
+| Apparent power | 0.1263 kVA | 0.8232 kVA | 2.4640 kVA |
+| Reactive power | 0.0425 kVAR | 0.2762 kVAR | 1.1033 kVAR |
+| Frequency | 49.952 Hz | 49.999 Hz | 50.045 Hz |
+| Power factor | 0.8846 | 0.9478 | 0.9829 |
+| Tariff | ₹4.23/kWh | ₹5.70/kWh | ₹9.49/kWh |
+| Interval cost | ₹0.008368 | ₹0.074883 | ₹0.335917 |
+
+```mermaid
+pie showData
+    title Load-state distribution across 5,000 readings
+    "Base Load" : 2762
+    "Normal" : 2027
+    "High" : 211
 ```
 
----
+| Tariff period | Readings | Share |
+|---|---:|---:|
+| Off-Peak, 20:00–10:00 | 3,179 | 63.58% |
+| Shoulder, 10:00–14:00 | 741 | 14.82% |
+| Peak, 14:00–20:00 | 1,080 | 21.60% |
 
-## 📸 Screenshots
+<details>
+<summary><strong>Open the complete 20-column data dictionary</strong></summary>
 
-### Dashboard Home
-![Dashboard](https://via.placeholder.com/800x450?text=Dashboard+Screenshot)
-*Real-time monitoring of all electrical parameters with live charts*
+| Column | Simple meaning |
+|---|---|
+| `id` | Sequential reading identifier |
+| `device_id` | Meter that produced the reading |
+| `captured_at` | Unix timestamp in seconds |
+| `iso8601` | UTC timestamp in ISO 8601 format |
+| `local_timestamp_ist` | Human-readable Indian Standard Time |
+| `voltage` | RMS supply voltage in volts |
+| `current` | RMS current in amperes |
+| `real_power_kw` | Useful/active power in kilowatts |
+| `apparent_power_kva` | Combined apparent power in kilovolt-amperes |
+| `reactive_power_kvar` | Reactive component in kilovolt-amperes reactive |
+| `energy_kwh` | Energy represented by the current sampling interval |
+| `total_energy_kwh` | Running cumulative energy total |
+| `frequency` | Supply frequency in hertz |
+| `power_factor` | Ratio of real power to apparent power |
+| `tariff_period` | Off-peak, shoulder, or peak time band |
+| `tariff_inr_per_kwh` | Electricity rate applied to the reading |
+| `instant_cost_inr` | Cost associated with that interval |
+| `load_state` | Base Load, Normal, or High classification |
+| `quality_flag` | Quality/status label for the reading |
+| `metadata` | Compact recording context such as phase, location, and sample interval |
 
-### Analytics Page
-![Analytics](https://via.placeholder.com/800x450?text=Analytics+Screenshot)
-*Advanced time-series analysis with customizable date ranges*
+</details>
 
-### Settings Page
-![Settings](https://via.placeholder.com/800x450?text=Settings+Screenshot)
-*Comprehensive user preferences and system configuration*
+<details>
+<summary><strong>Open a quick Python analysis example</strong></summary>
 
-### Mobile Responsive
-![Mobile](https://via.placeholder.com/400x800?text=Mobile+Screenshot)
-*Fully responsive design for mobile devices*
+```python
+import pandas as pd
 
----
+df = pd.read_csv("Smart Meter Domestic Dataset.csv")
+df["time"] = pd.to_datetime(df["iso8601"], utc=True)
 
-## 🚀 Getting Started
+print(df.shape)                       # (5000, 20)
+print(df[["voltage", "current"]].describe())
+print(df.groupby("tariff_period")["instant_cost_inr"].sum())
 
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Node.js** (v20 or higher) - [Download](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn**
-- **Git** - [Download](https://git-scm.com/)
-- **Code Editor** - VS Code recommended
-
-Optional for ESP32 integration:
-- **Arduino IDE** (v2.0+) - [Download](https://www.arduino.cc/en/software)
-- **ESP32 Board Package** installed in Arduino IDE
-
-### Installation
-
-#### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard.git
-cd IoT-based-Smart-Meter-Dashboard
+df.plot(x="time", y=["voltage", "current"], subplots=True)
 ```
 
-#### 2️⃣ Install Frontend Dependencies
+</details>
 
-```bash
-# Install frontend packages
-npm install
+### Electrical relationships used in the project
+
+The calculations stay transparent and traceable:
+
+| Quantity | Relationship |
+|---|---|
+| Apparent power | $S = V I / 1000$ kVA |
+| Real power | $P = V I \times PF / 1000$ kW |
+| Reactive power | $Q = \sqrt{\max(S^2-P^2,0)}$ kVAR |
+| Interval energy | $E = P \times \Delta t / 3600$ kWh, with $\Delta t$ in seconds |
+| Interval cost | $C = E \times$ tariff rate |
+
+The backend additionally buckets readings by time, calculates averages and peaks, estimates costs, and prepares user-selected export datasets.
+
+## Live data and ESP32
+
+```mermaid
+sequenceDiagram
+    participant M as Meter / ESP32
+    participant A as Express API
+    participant P as PostgreSQL
+    participant D as Dashboard
+    M->>A: POST /api/readings + x-api-key
+    A->>A: Validate and complete metrics
+    A->>P: Store time-stamped reading
+    A-->>D: Publish live SSE update
+    D->>A: Request summary or history with JWT
+    A->>P: Aggregate requested period
+    P-->>D: Return chart and summary data
 ```
 
-#### 3️⃣ Install Backend Dependencies
+The Device Configuration page generates an ESP32 sketch containing:
 
-```bash
-# Navigate to backend folder
-cd backend
+- Wi-Fi connection setup;
+- the selected device ID and API key;
+- an HTTP `POST` request to `/api/readings`;
+- an ArduinoJson payload;
+- configurable sending intervals; and
+- clearly marked sensor-reading functions ready to be connected to the chosen metering hardware.
 
-# Install backend packages
-npm install
+A generated sketch uses starter reading functions so the communication path can be tested first. Replace those functions with readings from the real metering module used in the final hardware. The included comments use a PZEM-004T as one possible example; other compatible sensing arrangements can use the same API contract.
 
-# Return to root directory
-cd ..
-```
+### Minimal device payload
 
-#### 4️⃣ Configure Environment Variables
-
-**Frontend (.env):**
-```bash
-# Copy example environment file
-cp .env.example .env
-
-# Edit .env with your settings
-nano .env
-```
-
-```env
-# Frontend Environment Variables
-VITE_API_BASE=http://localhost:5000
-VITE_SOCKET_URL=http://localhost:5000
-VITE_OPENWEATHER_API_KEY=your_openweather_api_key_here
-```
-
-**Backend (backend/.env):**
-```bash
-# Navigate to backend
-cd backend
-
-# Copy example environment file
-cp .env.example .env
-
-# Edit backend/.env
-nano .env
-```
-
-```env
-# Backend Environment Variables
-PORT=5000
-BACKEND_PORT=5000
-CORS_ORIGIN=*
-
-# JWT Configuration
-JWT_SECRET=your_super_secure_jwt_secret_here
-JWT_EXPIRY=12h
-
-# Database Configuration
-DB_FILE=./storage/smartmeter.sqlite
-
-# Device Configuration
-DEVICE_ID=meter-001
-DEVICE_API_KEY=your_secure_device_api_key_here
-
-# Tariff Configuration
-BASE_TARIFF_PER_KWH=6.5
-```
-
-#### 5️⃣ Run the Application
-
-**Development Mode (Both Frontend + Backend):**
-
-Open two terminal windows:
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
-npm run dev
-```
-Backend will start at `http://localhost:5000`
-
-**Terminal 2 - Frontend:**
-```bash
-npm run dev
-```
-Frontend will start at `http://localhost:3000`
-
-**Production Build:**
-
-```bash
-# Build frontend
-npm run build
-
-# Build creates optimized production files in dist/
-
-# Start backend in production mode
-cd backend
-npm start
-```
-
-#### 6️⃣ Access the Application
-
-Open your browser and navigate to:
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000/api/health
-
-### First-Time Setup
-
-1. **Create Admin Account:**
-   - Navigate to the registration page
-   - Create your first user account (first user becomes admin)
-
-2. **Login:**
-   - Use your email and password to log in
-
-3. **Configure Settings:**
-   - Go to Settings page
-   - Set your timezone, language, currency
-   - Configure tariff rate for cost calculations
-
-4. **Test with Sample Data:**
-   - Backend includes seed script for demo data
-   ```bash
-   cd backend
-   npm run seed
-   ```
-
----
-
-## ⚙️ Configuration
-
-### Frontend Configuration
-
-**Vite Configuration (vite.config.ts):**
-```typescript
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  build: {
-    target: 'esnext',
-    outDir: 'dist',
-  },
-  server: {
-    port: 3000,
-    open: true,
-  },
-});
-```
-
-**TypeScript Configuration (tsconfig.json):**
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "jsx": "react-jsx",
-    "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-### Backend Configuration
-
-**Environment Variables:**
-
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `PORT` | Server port | 5000 | No |
-| `BACKEND_PORT` | Alternative port variable | 5000 | No |
-| `CORS_ORIGIN` | Allowed CORS origins | `*` | No |
-| `JWT_SECRET` | Secret for JWT signing | - | **Yes** |
-| `JWT_EXPIRY` | Token expiration time | 12h | No |
-| `DB_FILE` | SQLite database path | ./storage/smartmeter.sqlite | No |
-| `DEVICE_ID` | Default device ID | meter-001 | No |
-| `DEVICE_API_KEY` | Device authentication key | - | **Yes** |
-| `BASE_TARIFF_PER_KWH` | Default electricity tariff | 6.5 | No |
-
-**Security Best Practices:**
-
-⚠️ **Before Production Deployment:**
-
-1. **Generate Secure JWT Secret:**
-```bash
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-```
-
-2. **Generate Secure Device API Key:**
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-
-3. **Update CORS Origin:**
-```env
-CORS_ORIGIN=https://your-frontend-domain.com
-```
-
-4. **Use Strong Passwords:**
-   - Minimum 8 characters
-   - Mix of uppercase, lowercase, numbers, special characters
-
----
-
-## 🔌 ESP32 Integration
-
-### Hardware Setup
-
-**Required Components:**
-- ESP32 Dev Module
-- ZMPT101B AC Voltage Sensor Module
-- SCT-013 Current Transformer (30A/100A)
-- Jumper wires
-- Breadboard
-- 5V Power supply
-
-**Wiring Diagram:**
-
-```
-ESP32              ZMPT101B           SCT-013
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Pin 34 ←────────── VOUT               
-Pin 35 ←───────────────────────────── VOUT
-GND    ←────────── GND                GND
-3.3V   ←────────── VCC                
-                   
-AC Input ─────────► AC IN (ZMPT101B)
-AC Line ──────────► Through SCT-013 core
-```
-
-### Firmware Configuration
-
-**Arduino Libraries Required:**
-```cpp
-// Install via Arduino Library Manager
-- EmonLib (by OpenEnergyMonitor)
-- WiFi (ESP32 built-in)
-- HTTPClient (ESP32 built-in)
-- BlynkSimpleEsp32 (optional, for Blynk integration)
-```
-
-**ESP32 Code Configuration:**
-
-1. Open `IOTSmartMeter_new.ino` in Arduino IDE
-
-2. Update WiFi credentials:
-```cpp
-const char* ssid = "Your_WiFi_SSID";
-const char* password = "Your_WiFi_Password";
-```
-
-3. Update server URL:
-```cpp
-// For local testing
-const char* serverURL = "http://192.168.x.x:5000/api/readings";
-
-// For production (cloud deployment)
-const char* serverURL = "https://iot-based-smart-meter-dashboard-backend.onrender.com/api/readings";
-```
-
-4. Update device API key:
-```cpp
-const char* deviceAPIKey = "your_device_api_key_from_backend_env";
-```
-
-5. Calibrate sensors (optional):
-```cpp
-// Adjust based on your sensor accuracy
-const float vCalibration = 290.0;  // Voltage calibration (220-290)
-const float currCalibration = 0.17; // Current calibration (0.11-0.2)
-```
-
-### Uploading Firmware
-
-1. Connect ESP32 to computer via USB
-2. Select board: **Tools > Board > ESP32 Dev Module**
-3. Select port: **Tools > Port > COMx** (Windows) or **/dev/ttyUSBx** (Linux)
-4. Click **Upload** button
-5. Open **Serial Monitor** (115200 baud) to view logs
-
-**Expected Serial Output:**
-```
-Connecting to WiFi...
-Connected to WiFi
-IP address: 192.168.1.100
-Sending: {"voltage":230.5,"current":2.3,"power":530,"energy":0.53,"frequency":50}
-✅ Response: 201
-✅ Data successfully saved to database!
-```
-
-### Data Format
-
-ESP32 sends data every 5 seconds in JSON format:
-
-```json
-{
-  "voltage": 230.5,      // RMS voltage in volts
-  "current": 2.3,        // RMS current in amperes
-  "power": 530,          // Power in watts
-  "energy": 0.53,        // Energy in kWh
-  "frequency": 50        // Frequency in Hz (50 or 60)
-}
-```
-
-Backend automatically calculates derived metrics:
-- Apparent Power (kVA) = (V × I) / 1000
-- Power Factor = Real Power / Apparent Power
-- Reactive Power (kVAr) = √(Apparent² - Real²)
-
-### Troubleshooting ESP32
-
-**WiFi Connection Issues:**
-```cpp
-// Add more connection attempts
-int retries = 0;
-while (WiFi.status() != WL_CONNECTED && retries < 20) {
-  delay(500);
-  Serial.print(".");
-  retries++;
-}
-```
-
-**HTTP POST Failures:**
-- ✅ Verify backend is running
-- ✅ Check firewall settings
-- ✅ Ensure device API key matches backend
-- ✅ Verify network connectivity
-
-**Sensor Reading Errors:**
-- ✅ Check sensor wiring
-- ✅ Verify power supply (3.3V/5V)
-- ✅ Adjust calibration values
-- ✅ Test sensors individually
-
----
-
-## 🌐 Deployment
-
-### Frontend Deployment (Vercel)
-
-**Method 1: Vercel Dashboard (Recommended)**
-
-1. **Sign up for Vercel:** https://vercel.com/signup
-2. **Import Git Repository:**
-   - Click "New Project"
-   - Import from GitHub: `Agnibha-31/IoT-based-Smart-Meter-Dashboard`
-3. **Configure Build Settings:**
-   - Framework Preset: **Vite**
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-4. **Add Environment Variables:**
-   ```env
-   VITE_API_BASE=https://your-backend-url.onrender.com
-   VITE_SOCKET_URL=https://your-backend-url.onrender.com
-   VITE_OPENWEATHER_API_KEY=your_api_key
-   ```
-5. **Deploy:** Click "Deploy"
-
-**Method 2: Vercel CLI**
-
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Login
-vercel login
-
-# Deploy
-vercel
-
-# Production deployment
-vercel --prod
-```
-
-**Custom Domain (Optional):**
-1. Go to Project Settings > Domains
-2. Add your custom domain
-3. Update DNS records (Vercel provides instructions)
-
-### Backend Deployment (Render.com)
-
-**Method 1: Render Dashboard (Recommended)**
-
-1. **Sign up for Render:** https://render.com/signup
-2. **Create New Web Service:**
-   - Click "New +" > "Web Service"
-   - Connect GitHub repository
-3. **Configure Service:**
-   - Name: `smart-meter-backend`
-   - Environment: **Node**
-   - Region: **Oregon** (or closest to you)
-   - Branch: **main**
-   - Build Command: `npm install`
-   - Start Command: `npm start`
-4. **Add Environment Variables:**
-   ```env
-   NODE_ENV=production
-   PORT=5000
-   CORS_ORIGIN=https://your-frontend-url.vercel.app
-   JWT_SECRET=<generate secure secret>
-   JWT_EXPIRY=12h
-   DEVICE_ID=meter-001
-   DEVICE_API_KEY=<generate secure key>
-   DB_FILE=/opt/render/project/src/storage/smartmeter.sqlite
-   BASE_TARIFF_PER_KWH=6.5
-   ```
-5. **Add Persistent Disk:**
-   - Go to "Disks" tab
-   - Click "Add Disk"
-   - Name: `smart-meter-storage`
-   - Mount Path: `/opt/render/project/src/storage`
-   - Size: 1 GB (free tier)
-6. **Deploy:** Click "Create Web Service"
-
-**Method 2: Using render.yaml**
-
-The project includes `backend/render.yaml` for automatic configuration:
-
-```yaml
-services:
-  - type: web
-    name: smart-meter-backend
-    env: node
-    region: oregon
-    plan: free
-    buildCommand: npm install
-    startCommand: npm start
-    healthCheckPath: /api/health
-    disk:
-      name: smart-meter-storage
-      mountPath: /opt/render/project/src/storage
-      sizeGB: 1
-```
-
-Push to GitHub and connect repository in Render dashboard.
-
-### Database Considerations
-
-**SQLite with SQL.js:**
-- ✅ No external database service needed
-- ✅ Automatic backups (Render persistent disk)
-- ✅ Suitable for small to medium deployments (< 100,000 readings)
-- ✅ Free tier compatible
-
-**Scaling Options:**
-
-For larger deployments, consider:
-- **PostgreSQL** (Supabase free tier: 500MB)
-- **MongoDB Atlas** (free tier: 512MB)
-- **PlanetScale** (MySQL-compatible, free tier: 5GB)
-
-### Post-Deployment Checklist
-
-- [ ] Frontend accessible via HTTPS
-- [ ] Backend API health check passes
-- [ ] User registration works
-- [ ] Login/logout functions
-- [ ] ESP32 can send data to cloud backend
-- [ ] Real-time data updates on frontend
-- [ ] Data export (CSV/Excel) works
-- [ ] All 21 languages display correctly
-- [ ] Theme switching works
-- [ ] Analytics page loads data
-- [ ] Settings save properly
-
-### Monitoring & Maintenance
-
-**Uptime Monitoring:**
-- Use [UptimeRobot](https://uptimerobot.com/) (free)
-- Monitor endpoint: `https://your-backend.onrender.com/api/health`
-
-**Error Tracking:**
-- Integrate [Sentry](https://sentry.io/) (5k errors/month free)
-- Add to frontend and backend
-
-**Analytics:**
-- Google Analytics for frontend usage
-- Morgan logs in backend for API monitoring
-
-**Backup Strategy:**
-- Render persistent disks are backed up automatically
-- Export database weekly: `cp backend/storage/smartmeter.sqlite backup-$(date +%Y%m%d).sqlite`
-
----
-
-## 📚 API Documentation
-
-### Base URL
-
-**Local Development:**
-```
-http://localhost:5000/api
-```
-
-**Production:**
-```
-https://iot-based-smart-meter-dashboard-backend.onrender.com/api
-```
-
-### Authentication
-
-All authenticated endpoints require a JWT token in the Authorization header:
-
-```http
-Authorization: Bearer <your_jwt_token>
-```
-
-Device endpoints require an API key:
-
-```http
-x-api-key: <your_device_api_key>
-```
-
-### Endpoints
-
-#### Authentication
-
-**Register User**
-```http
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "SecurePass123!",
-  "name": "John Doe"
-}
-
-Response: 201 Created
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "role": "operator"
-  }
-}
-```
-
-**Login**
-```http
-POST /api/auth/login
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "SecurePass123!"
-}
-
-Response: 200 OK
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": { ... }
-}
-```
-
-**Get Current User**
-```http
-GET /api/auth/me
-Authorization: Bearer <token>
-
-Response: 200 OK
-{
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "role": "operator",
-    "timezone": "UTC",
-    "language": "en",
-    "currency": "USD"
-  }
-}
-```
-
-#### Readings (IoT Data)
-
-**Create Reading (ESP32)**
 ```http
 POST /api/readings
-x-api-key: <device_api_key>
 Content-Type: application/json
+x-api-key: YOUR_DEVICE_API_KEY
+```
 
+```json
 {
   "voltage": 230.5,
-  "current": 2.3,
-  "power": 530,
-  "energy": 0.53,
-  "frequency": 50
-}
-
-Response: 201 Created
-{
-  "reading": {
-    "id": 1,
-    "device_id": "meter-001",
-    "voltage": 230.5,
-    "current": 2.3,
-    "real_power_kw": 0.53,
-    "apparent_power_kva": 0.53,
-    "power_factor": 1.0,
-    "reactive_power_kvar": 0.0,
-    "energy_kwh": 0.53,
-    "frequency": 50,
-    "captured_at": 1732234567
+  "current": 1.23,
+  "power": 283.5,
+  "energy": 0.14,
+  "frequency": 50.0,
+  "power_factor": 0.97,
+  "metadata": {
+    "phase": "single",
+    "location": "IN-WB"
   }
 }
 ```
 
-**Get Latest Reading**
-```http
-GET /api/readings/latest?device_id=meter-001
-Authorization: Bearer <token>
+## Application structure
 
-Response: 200 OK
-{
-  "reading": { ... }
-}
+| Layer | Main technologies | Responsibility |
+|---|---|---|
+| Interface | React, TypeScript, Tailwind CSS, Framer Motion, Recharts | Pages, charts, navigation, settings, forms, and responsive presentation |
+| Browser services | Fetch API, EventSource, local storage | REST calls, JWT session state, and live SSE subscription |
+| Backend | Node.js, Express, Zod, JWT, bcryptjs | Authentication, validation, device access, readings, analytics, and exports |
+| Data | PostgreSQL | Persistent users, devices, readings, indexes, and export history |
+| Export | csv-stringify, ExcelJS | Downloadable CSV and XLSX datasets |
+| Edge device | ESP32, WiFi, HTTPClient, ArduinoJson | Authenticated measurement delivery over Wi-Fi |
+| Deployment | Vercel, Render | Hosted frontend, backend, health checks, and environment configuration |
+
+```text
+Smart-Meter-IoT/
+├── src/                              # React and TypeScript dashboard source
+│   ├── components/                   # Login, layout, settings, pages, and UI elements
+│   ├── hooks/                        # Telemetry hooks
+│   ├── styles/                       # Dashboard styling
+│   └── utils/                        # API, live data, currency, rates, and notifications
+├── backend/
+│   ├── src/index.js                  # Express entry point and SSE stream
+│   ├── src/routes/                   # Auth, devices, readings, analytics, exports, admin
+│   ├── src/services/                 # Business and aggregation logic
+│   ├── src/db-postgres.js            # Active PostgreSQL adapter and schema setup
+│   └── render.yaml                   # Backend and database deployment blueprint
+├── scripts/                          # Vite, TypeScript, Tailwind, and Vercel configuration
+├── Dashboard View/                   # All 11 dashboard screenshots shown above
+├── Smart Meter Domestic Dataset.csv  # 5,000 recorded project readings
+└── README.md
 ```
 
-**Get Readings in Range**
-```http
-GET /api/readings?device_id=meter-001&from=1732000000&to=1732234567&limit=100
-Authorization: Bearer <token>
+<details>
+<summary><strong>Open implementation-path notes</strong></summary>
 
-Response: 200 OK
-{
-  "readings": [ ... ],
-  "pagination": {
-    "total": 1000,
-    "page": 1,
-    "limit": 100
-  }
-}
+- The primary backend path is `backend/src/index.js` → `backend/src/db-postgres.js` → PostgreSQL.
+- Earlier SQLite-oriented files and the schema in `backend/models/ReadingModel.js` remain as development-history references; the active server starts with the PostgreSQL adapter.
+- The current live frontend helper uses Server-Sent Events through `/api/stream`.
+- The CSV is ready for direct analysis, while new online readings enter PostgreSQL through the authenticated API. A historical-import routine can be added whenever the recorded file should seed a deployment database.
+- Dashboard analytics use explainable electrical relationships and time aggregation rather than a machine-learning inference model.
+
+</details>
+
+## Quick start
+
+### Fastest ways to explore
+
+1. Open the [hosted dashboard](https://iot-based-smart-meter-dashboard.vercel.app).
+2. Browse the [complete visual tour](#dashboard-tour).
+3. Download and analyse [`Smart Meter Domestic Dataset.csv`](Smart%20Meter%20Domestic%20Dataset.csv).
+
+### Local requirements
+
+- Git
+- Node.js 18 or newer
+- npm
+- PostgreSQL
+- Arduino IDE 2.x when connecting an ESP32
+
+<details>
+<summary><strong>1. Start the PostgreSQL backend</strong></summary>
+
+Clone the repository and install the backend packages:
+
+```bash
+git clone https://github.com/Agnibha-31/Smart-Meter-IoT.git
+cd Smart-Meter-IoT/backend
+npm install
 ```
 
-#### Analytics
+Create `backend/.env` with deployment-specific values:
 
-**Get Summary Statistics**
-```http
-GET /api/analytics/summary?device_id=meter-001&range=7d
-Authorization: Bearer <token>
-
-Response: 200 OK
-{
-  "summary": {
-    "peak_power": 2.5,
-    "avg_power": 1.2,
-    "min_power": 0.3,
-    "total_energy": 50.5,
-    "total_cost": 329.25,
-    "load_factor": 0.48
-  }
-}
+```dotenv
+PORT=5000
+NODE_ENV=development
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/smartmeter
+JWT_SECRET=replace_with_a_long_random_secret
+JWT_EXPIRY=12h
+CORS_ORIGIN=http://localhost:3000
+DEVICE_ID=meter-001
+DEVICE_API_KEY=replace_with_a_device_bootstrap_key
+BASE_TARIFF_PER_KWH=6.5
+BACKEND_URL=http://localhost:5000
 ```
 
-**Get Time-Series Data**
-```http
-GET /api/analytics?device_id=meter-001&range=24h&granularity=1h
-Authorization: Bearer <token>
+Create the `smartmeter` PostgreSQL database, then start the server:
 
-Response: 200 OK
-{
-  "data": [
-    {
-      "timestamp": 1732200000,
-      "avg_voltage": 230.2,
-      "avg_current": 2.1,
-      "avg_power": 1.5,
-      "total_energy": 1.5
-    },
-    ...
-  ]
-}
+```bash
+npm run dev
 ```
 
-#### Export
+The startup routine creates the required tables and indexes. Confirm the API at:
 
-**Export CSV**
-```http
-GET /api/export/csv?device_id=meter-001&from=1732000000&to=1732234567
-Authorization: Bearer <token>
-
-Response: 200 OK
-Content-Type: text/csv
-Content-Disposition: attachment; filename="readings-20251122.csv"
-
-timestamp,voltage,current,power,energy,frequency
-1732234567,230.5,2.3,530,0.53,50
-...
+```text
+http://localhost:5000/api/health
 ```
 
-**Export Excel**
-```http
-GET /api/export/excel?device_id=meter-001&from=1732000000&to=1732234567
-Authorization: Bearer <token>
+</details>
 
-Response: 200 OK
-Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-Content-Disposition: attachment; filename="readings-20251122.xlsx"
+<details>
+<summary><strong>2. Prepare and start the frontend workspace</strong></summary>
 
-[Excel file binary data]
+The repository snapshot keeps the application source in `/src` and its Vite workspace files in `/scripts`. A convenient local layout is to bring both into one frontend folder:
+
+```bash
+cd Smart-Meter-IoT
+cp -R scripts frontend
+cp -R src frontend/src
+cd frontend
+npm install
+npm install recharts socket.io-client sonner react-hook-form \
+  @radix-ui/react-dialog @radix-ui/react-dropdown-menu \
+  @radix-ui/react-select @radix-ui/react-tabs
+npm install --save-dev @vitejs/plugin-react-swc
 ```
 
-#### Real-Time Streaming
+Create `frontend/.env`:
 
-**Server-Sent Events**
-```http
-GET /api/stream?token=<jwt_token>
-
-Response: 200 OK
-Content-Type: text/event-stream
-
-: connected
-
-data: {"id":1,"voltage":230.5,"current":2.3,...}
-
-data: {"id":2,"voltage":231.0,"current":2.4,...}
+```dotenv
+VITE_API_BASE=http://localhost:5000
+VITE_SOCKET_URL=http://localhost:5000
 ```
 
-### Error Responses
+Start Vite:
 
-**400 Bad Request**
-```json
-{
-  "error": "Validation failed",
-  "details": [
-    "voltage must be a number",
-    "current must be positive"
-  ]
-}
+```bash
+npm run dev
 ```
 
-**401 Unauthorized**
-```json
-{
-  "error": "Invalid or expired token"
-}
+Then open `http://localhost:3000` and register the first account.
+
+</details>
+
+<details>
+<summary><strong>3. Connect an ESP32</strong></summary>
+
+1. Sign in and open **Device Configuration**.
+2. Create or select a meter.
+3. Copy the generated sketch.
+4. Add the Wi-Fi SSID and password.
+5. Connect the sketch's reading functions to the physical sensor library.
+6. Keep the generated device ID, endpoint, and API key together.
+7. Upload the sketch and monitor the serial console at 115200 baud.
+8. Confirm that new readings appear in the dashboard.
+
+Treat device API keys like passwords. Regenerate a key if it is exposed, then update the firmware with the replacement.
+
+</details>
+
+## API at a glance
+
+The API uses two clear authentication paths:
+
+- **User requests:** `Authorization: Bearer <JWT>`
+- **Meter ingestion:** `x-api-key: <device-key>`
+
+| Route group | Main endpoints | Purpose |
+|---|---|---|
+| Health and live data | `GET /api/health`, `GET /api/stream` | Service status and authenticated SSE updates |
+| Authentication | `/api/auth/*` | Registration, login, current user, preferences, password, and account management |
+| Devices | `/api/devices/*` | Create/list devices, inspect a device, rotate its key, and obtain ESP32 configuration |
+| Readings | `/api/readings/*` | Ingest, fetch latest/history, remove selected history, and inspect storage statistics |
+| Analytics | `/api/analytics/*` | Summary, voltage history, time buckets, and cost projection |
+| Export | `/api/export/*` | Preview selections and download CSV or XLSX files |
+
+<details>
+<summary><strong>Open the core endpoint reference</strong></summary>
+
+| Method | Endpoint | Authentication | Result |
+|---|---|---|---|
+| `GET` | `/api/health` | None | API health and current server time |
+| `POST` | `/api/auth/register` | None | New user, JWT, and profile |
+| `POST` | `/api/auth/login` | None | JWT and profile |
+| `GET` | `/api/auth/me` | Bearer JWT | Current profile |
+| `PATCH` | `/api/auth/preferences` | Bearer JWT | Updated settings |
+| `GET` | `/api/devices` | Bearer JWT | User-owned devices |
+| `POST` | `/api/devices` | Bearer JWT | New device and API key |
+| `GET` | `/api/devices/:deviceId` | Bearer JWT | Device details |
+| `POST` | `/api/devices/:deviceId/regenerate-key` | Bearer JWT | Replacement device key |
+| `GET` | `/api/devices/:deviceId/esp32-config` | Bearer JWT | Endpoint, payload, and generated sketch |
+| `POST` | `/api/readings` | Device API key | Stored reading |
+| `GET` | `/api/readings/latest` | Bearer JWT | Latest reading |
+| `GET` | `/api/readings/history` | Bearer JWT | Bucketed historical series |
+| `GET` | `/api/analytics/summary` | Bearer JWT | Period summary |
+| `GET` | `/api/analytics/voltage-history` | Bearer JWT | Voltage series |
+| `GET` | `/api/analytics/cost` | Bearer JWT | Cost projection |
+| `GET` | `/api/export/preview` | Bearer JWT | Export preview |
+| `GET` | `/api/export/readings` | Bearer JWT | CSV or XLSX download |
+| `GET` | `/api/stream?token=...` | JWT query token | Live SSE connection |
+
+Time-based endpoints accept combinations such as `period`, `from`, `to`, `device_id`, and `interval_seconds`. Export routes also accept metric, format, metadata, and sampling selections.
+
+</details>
+
+## Data model
+
+```mermaid
+erDiagram
+    USERS ||--o{ DEVICES : owns
+    USERS ||--o{ EXPORTS : creates
+    DEVICES ||--o{ READINGS : records
+
+    USERS {
+        text id PK
+        text email UK
+        text password_hash
+        text timezone
+        text currency
+        decimal base_tariff
+    }
+    DEVICES {
+        text id PK
+        text user_id FK
+        text api_key UK
+        text name
+        bigint last_seen
+    }
+    READINGS {
+        serial id PK
+        text device_id FK
+        bigint captured_at
+        decimal voltage
+        decimal current
+        decimal real_power_kw
+        decimal energy_kwh
+    }
+    EXPORTS {
+        text id PK
+        text user_id FK
+        text format
+        bigint range_from
+        bigint range_to
+    }
 ```
 
-**403 Forbidden**
-```json
-{
-  "error": "Insufficient permissions"
-}
+The server creates this PostgreSQL structure on startup and adds indexes for user email, user-owned devices, and device/time reading searches.
+
+## Deployment
+
+The included deployment files connect the three main hosted parts:
+
+```mermaid
+flowchart LR
+    A["Browser"] --> B["Vercel frontend"]
+    B --> C["Render Express API"]
+    C --> D[("PostgreSQL")]
+    E["ESP32 device"] --> C
 ```
 
-**404 Not Found**
-```json
-{
-  "error": "Resource not found"
-}
-```
+- `scripts/vercel.json` contains the Vite frontend build and API-base configuration.
+- `backend/render.yaml` describes the Node backend, PostgreSQL service, health check, and environment values.
+- Production secrets such as `JWT_SECRET`, database credentials, reset credentials, and device keys belong in the hosting provider's environment settings.
 
-**500 Internal Server Error**
-```json
-{
-  "error": "Internal server error",
-  "message": "Database connection failed"
-}
-```
+<details>
+<summary><strong>Open the deployment review checklist</strong></summary>
 
----
+Before a public operational deployment, review these items for the chosen environment:
 
-## 🌍 Internationalization
+- keep all secrets and private keys in environment variables;
+- restrict maintenance and user-statistics endpoints to authorised administrators;
+- avoid printing API keys or personal information in application logs;
+- align account deletion and database-statistics operations with the PostgreSQL adapter;
+- consolidate the frontend workspace and dependency manifest;
+- standardise live delivery on the SSE implementation used by the API;
+- add automated API, authentication, analytics, and frontend tests;
+- add rate limiting, structured logging, backups, monitoring, and recovery checks;
+- validate meter isolation, fusing, enclosure, conductor rating, and installation with a qualified electrical professional.
 
-The application supports **21 languages** with complete translations for all UI elements.
+</details>
 
-### Available Languages
+## Suggested next steps
 
-| Language | Code | Status | Coverage |
-|----------|------|--------|----------|
-| English | `en` | ✅ Complete | 100% |
-| Japanese | `ja` | ✅ Complete | 100% |
-| Chinese (Simplified) | `zh` | ✅ Complete | 100% |
-| Spanish | `es` | ✅ Complete | 100% |
-| French | `fr` | ✅ Complete | 100% |
-| German | `de` | ✅ Complete | 100% |
-| Italian | `it` | ✅ Complete | 100% |
-| Portuguese | `pt` | ✅ Complete | 100% |
-| Russian | `ru` | ✅ Complete | 100% |
-| Korean | `ko` | ✅ Complete | 100% |
-| Arabic | `ar` | ✅ Complete | 100% |
-| Hindi | `hi` | ✅ Complete | 100% |
-| Bengali | `bn` | ✅ Complete | 100% |
-| Thai | `th` | ✅ Complete | 100% |
-| Vietnamese | `vi` | ✅ Complete | 100% |
-| Turkish | `tr` | ✅ Complete | 100% |
-| Polish | `pl` | ✅ Complete | 100% |
-| Dutch | `nl` | ✅ Complete | 100% |
-| Swedish | `sv` | ✅ Complete | 100% |
-| Danish | `da` | ✅ Complete | 100% |
-| Norwegian | `no` | ✅ Complete | 100% |
-| Finnish | `fi` | ✅ Complete | 100% |
+ - Add a historical CSV-to-PostgreSQL import command.
+ -  Consolidate `/src` and `/scripts` into a single frontend workspace.
+ -  Add automated tests and a continuous-integration workflow.
+ -  Add per-device alert rules for voltage, current, power, and connection state.
+ -  Add calibration and sensor-quality documentation for the selected meter hardware.
+ -  Add longer recorded sessions and multi-device comparison views.
+ -  Add a Progressive Web App mode for installable mobile use.
 
-### Adding a New Language
+## Use, collaboration, and licensing
 
-1. Open `src/components/translations.tsx`
+This repository is shared to support technical review, learning, research discussion, and collaboration around connected energy monitoring. Clear licensing information can be added at the repository root to define how the software, dataset, documentation, and visual assets may be reused.
 
-2. Add new language object:
-```typescript
-export const translations = {
-  // ... existing languages
-  
-  // New language
-  'xx': { // ISO 639-1 language code
-    // Copy all keys from 'en' and translate
-    'dashboard': 'Your Translation',
-    'voltage': 'Your Translation',
-    // ... all 200+ keys
-  }
-};
-```
+For organisation-specific dashboards, commercial integrations, research deployments, hardware adaptation, or tailored analytics, the implementation can be discussed directly with the developer.
 
-3. Test language switching in Settings page
+## Developer
 
-4. Submit pull request with new translations
+[Agnibha Basak](https://github.com/Agnibha-31)
 
-### Translation Keys
+For custom IoT dashboards, smart-energy platforms, ESP32 integration, data analytics, deployment, or business collaboration, click the address below to open a ready-to-write email:
 
-Total: **200+ keys** covering:
-- Navigation menu items
-- Dashboard labels
-- Analytics terms
-- Settings options
-- Error messages
-- Success notifications
-- Form labels
-- Button texts
-- Tooltips
-- Time intervals
-- Data retention periods
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### Ways to Contribute
-
-- 🐛 **Report Bugs:** Open an issue with detailed reproduction steps
-- ✨ **Suggest Features:** Share your ideas for new features
-- 📝 **Improve Documentation:** Fix typos, add examples, clarify instructions
-- 🌍 **Add Translations:** Add support for new languages
-- 💻 **Submit Code:** Fix bugs, implement features, improve performance
-- 🎨 **Improve UI/UX:** Suggest design improvements, create mockups
-
-### Development Workflow
-
-1. **Fork the repository**
-2. **Create a feature branch:** `git checkout -b feature/amazing-feature`
-3. **Make your changes**
-4. **Test thoroughly:** Ensure all features work
-5. **Commit with clear messages:** `git commit -m 'Add amazing feature'`
-6. **Push to your fork:** `git push origin feature/amazing-feature`
-7. **Open a Pull Request:** Describe your changes in detail
-
-### Code Style Guidelines
-
-- **TypeScript/JavaScript:** Follow ESLint rules
-- **React Components:** Use functional components with hooks
-- **Naming:** camelCase for variables/functions, PascalCase for components
-- **Comments:** Explain WHY, not WHAT
-- **File Structure:** Keep files under 300 lines
-
-### Testing
-
-Before submitting a PR:
-- [ ] All existing tests pass
-- [ ] New features have tests
-- [ ] Manual testing completed
-- [ ] No TypeScript errors
-- [ ] No console errors
-
-### Pull Request Template
-
-```markdown
-## Description
-[Brief description of changes]
-
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
-
-## Testing
-- [ ] Tested locally
-- [ ] Added new tests
-- [ ] All tests pass
-
-## Screenshots (if applicable)
-[Add screenshots here]
-```
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2025 Agnibha Basak
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
-
-## 🙏 Acknowledgments
-
-### Technologies & Libraries
-- [React](https://react.dev/) - UI framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Vite](https://vitejs.dev/) - Build tool
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [shadcn/ui](https://ui.shadcn.com/) - Component library
-- [Recharts](https://recharts.org/) - Data visualization
-- [Express](https://expressjs.com/) - Backend framework
-- [SQL.js](https://sql.js.org/) - SQLite in WASM
-- [Vercel](https://vercel.com/) - Frontend hosting
-- [Render](https://render.com/) - Backend hosting
-
-### Hardware
-- [ESP32](https://www.espressif.com/en/products/socs/esp32) - Microcontroller
-- [OpenEnergyMonitor](https://openenergymonitor.org/) - EmonLib library
-
-### Inspiration
-- Open Energy Monitor project
-- Home Assistant
-- Grafana dashboards
-
----
-
-## 📞 Support & Contact
-
-### Get Help
-
-- 📖 **Documentation:** [Wiki](https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard/wiki)
-- 🐛 **Report Bugs:** [Issues](https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard/discussions)
-- ✉️ **Email:** agnibha.dev@gmail.com
-
-### Quick Links
-
-- 🌐 **Live Demo:** https://iot-based-smart-meter-dashboard.vercel.app
-- 📊 **Backend API:** https://iot-based-smart-meter-dashboard-backend.onrender.com
-- 🐙 **GitHub Repository:** https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard
-- 📚 **API Documentation:** [API Docs](https://github.com/Agnibha-31/IoT-based-Smart-Meter-Dashboard/blob/main/API.md)
-
----
-
-## 🗺️ Roadmap
-
-### Version 1.1 (Planned)
-- [ ] Push notifications for alerts
-- [ ] Email notifications for daily/weekly reports
-- [ ] Advanced forecasting with ML
-- [ ] Multiple device support in single dashboard
-- [ ] Mobile apps (React Native)
-
-### Version 1.2 (Planned)
-- [ ] Integration with solar panels
-- [ ] Battery monitoring support
-- [ ] Smart home device control
-- [ ] Automation rules (IFTTT-style)
-- [ ] Public API for third-party integrations
-
-### Version 2.0 (Future)
-- [ ] Time-series database (TimescaleDB/InfluxDB)
-- [ ] Advanced machine learning for anomaly detection
-- [ ] Predictive maintenance alerts
-- [ ] Multi-tenant architecture
-- [ ] White-label solution
-
----
-
-## 📊 Project Stats
-
-![GitHub stars](https://img.shields.io/github/stars/Agnibha-31/IoT-based-Smart-Meter-Dashboard?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Agnibha-31/IoT-based-Smart-Meter-Dashboard?style=social)
-![GitHub issues](https://img.shields.io/github/issues/Agnibha-31/IoT-based-Smart-Meter-Dashboard)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Agnibha-31/IoT-based-Smart-Meter-Dashboard)
-![GitHub last commit](https://img.shields.io/github/last-commit/Agnibha-31/IoT-based-Smart-Meter-Dashboard)
-
----
-
-<div align="center">
-
-**Built with ❤️ by [Agnibha Basak](https://github.com/Agnibha-31)**
-
-⭐ **Star this repo** if you find it helpful!
-
-[⬆ Back to Top](#-smart-meter-iot-dashboard)
-
-</div>
+### [remix.play31@gmail.com](mailto:remix.play31@gmail.com?subject=Smart%20Meter%20IoT%20Dashboard%20Enquiry)

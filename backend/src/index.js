@@ -31,12 +31,16 @@ app.get('/api/health', (req, res) => {
 
 app.get('/api/stream', (req, res) => {
   const token = req.query.token;
+
   if (!token) {
     return res.status(401).end();
   }
+
+  let payload;
+
   try {
-    jwt.verify(token, config.jwtSecret);
-  } catch (err) {
+    payload = jwt.verify(token, config.jwtSecret);
+  } catch {
     return res.status(401).end();
   }
 
@@ -45,18 +49,30 @@ app.get('/api/stream', (req, res) => {
     'Cache-Control': 'no-cache',
     Connection: 'keep-alive',
   });
+
   res.flushHeaders?.();
   res.write(': connected\n\n');
-  const client = { res };
+
+  const client = {
+    res,
+    userId: payload.sub,
+  };
+
   clients.add(client);
+
   req.on('close', () => {
     clients.delete(client);
   });
 });
 
-bus.on('reading:new', (reading) => {
+bus.on('reading:new', ({ reading, userId }) => {
   const payload = `data: ${JSON.stringify(reading)}\n\n`;
+
   clients.forEach((client) => {
+    if (client.userId !== userId) {
+      return;
+    }
+
     try {
       client.res.write(payload);
     } catch {

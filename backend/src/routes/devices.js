@@ -58,7 +58,6 @@ router.post(
     }
     console.log('✅ [API] Device found, proceeding with regeneration');
     const updatedDevice = await regenerateDeviceApiKey(req.params.deviceId);
-    console.log('📤 [API] Sending response with api_key:', updatedDevice.api_key);
     res.json({ 
       device: updatedDevice,
       message: 'API key regenerated successfully. Update your ESP32 firmware with the new key.' 

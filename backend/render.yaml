@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: smart-meter-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CORS_ORIGIN
+        value: https://iot-based-smart-meter-dashboard.vercel.app
+      - key: JWT_SECRET
+        generateValue: true
+        sync: false
+      - key: JWT_EXPIRY
+        value: 12h
+      - key: DEVICE_ID
+        value: meter-001
+      - key: DEVICE_API_KEY
+        generateValue: true
+        sync: false
+      - key: BASE_TARIFF_PER_KWH
+        value: 6.5
+      - key: BACKEND_URL
+        value: https://iot-based-smart-meter-dashboard-backend.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: smart-meter-db
+          property: connectionString
+
+databases:
+  - name: smart-meter-db
+    databaseName: smartmeter
+    user: smartmeter_user
+    plan: free
+    region: oregon

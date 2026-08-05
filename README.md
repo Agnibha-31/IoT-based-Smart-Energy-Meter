@@ -435,6 +435,7 @@ Create `frontend/.env`:
 ```dotenv
 VITE_API_BASE=http://localhost:5000
 VITE_SOCKET_URL=http://localhost:5000
+VITE_OPENWEATHER_API_KEY=your_openweathermap_api_key
 ```
 
 Start Vite:

@@ -604,8 +604,6 @@ Third-party dependencies and attributed materials remain governed by their respe
 
 ## Developer
 
-[Agnibha Basak](https://github.com/Agnibha-31)
+### [Agnibha Basak](https://github.com/Agnibha-31)
 
-For custom IoT dashboards, smart-energy platforms, ESP32 integration, data analytics, deployment, or business collaboration, click the address below to open a ready-to-write email:
-
-### [remix.play31@gmail.com](mailto:remix.play31@gmail.com?subject=Smart%20Meter%20IoT%20Dashboard%20Enquiry)
+For custom IoT dashboards, smart-energy platforms, ESP32 integration, data analytics, deployment, or business collaboration, click the address below to open a ready-to-write email: [remix.play31@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=remix.play31@gmail.com&su=Smart%20Meter%20IoT%20Dashboard%20Enquiry)

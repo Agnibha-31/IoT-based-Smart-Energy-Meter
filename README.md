@@ -595,9 +595,11 @@ Before a public operational deployment, review these items for the chosen enviro
 
 ## Use, collaboration, and licensing
 
-This repository is shared to support technical review, learning, research discussion, and collaboration around connected energy monitoring. Clear licensing information can be added at the repository root to define how the software, dataset, documentation, and visual assets may be reused.
+The Smart Meter IoT Dashboard source code and project documentation are available under the [Apache License 2.0](LICENSE), supporting transparent research, development, modification, and commercial integration while preserving the applicable copyright and attribution notices.
 
-For organisation-specific dashboards, commercial integrations, research deployments, hardware adaptation, or tailored analytics, the implementation can be discussed directly with the developer.
+The recorded [`Smart Meter Domestic Dataset.csv`](Smart%20Meter%20Domestic%20Dataset.csv) is separately available under the [Creative Commons Attribution 4.0 International License](DATA_LICENSE.md).
+
+Third-party dependencies and attributed materials remain governed by their respective licenses. For organisation-specific dashboards, commercial integrations, hardware adaptation, deployment support, or customised analytics, enquiries are welcome through the developer contact provided below.
 
 ## Developer
 

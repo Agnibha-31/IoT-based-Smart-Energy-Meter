@@ -51,6 +51,18 @@ export const requireAuth = async (req, res, next) => {
   }
 };
 
+
+export const requireAdmin = (req, res, next) => {
+  if (!req.user || req.user.role !== 'admin') {
+    return res.status(403).json({
+      error: 'Administrator access required',
+    });
+  }
+
+  next();
+};
+
+
 export const requireDeviceKey = async (req, res, next) => {
   try {
     const apiKey = req.headers['x-api-key'];

@@ -1,0 +1,183 @@
+/* Light theme overrides for dark-oriented utilities.
+  Active when <html> has class `theme-light`.
+*/
+
+/* Tunable variables for dark background animation */
+:root {
+  --sm-dark-anim-opacity: 0.22;
+  --sm-dark-anim-blur: 60px;
+  --sm-dark-anim-speed: 48s;
+  --sm-dark-anim-saturation: 110%;
+  --sm-dark-anim-overlay-opacity: 0.22;
+  --sm-dark-wave-opacity: 0.42;
+  --sm-dark-wave-speed: 36s;
+}
+
+/* Backgrounds */
+.theme-light .bg-slate-900,
+.theme-light .bg-slate-800 {
+  background-color: #ffffff !important;
+}
+.theme-light .bg-slate-700 { background-color: #f3f4f6 !important; }
+.theme-light .bg-slate-600 { background-color: #e5e7eb !important; }
+.theme-light .bg-slate-800\/50 { background-color: rgba(255,255,255,0.7) !important; }
+.theme-light .bg-slate-700\/30 { background-color: rgba(243,244,246,0.3) !important; }
+.theme-light .bg-slate-700\/20 { background-color: rgba(243,244,246,0.2) !important; }
+.theme-light .bg-blue-500\/20 { background-color: rgba(59,130,246,0.08) !important; }
+.theme-light .bg-green-500\/20 { background-color: rgba(34,197,94,0.08) !important; }
+.theme-light .bg-red-500\/20 { background-color: rgba(239,68,68,0.08) !important; }
+.theme-light .bg-purple-500\/20 { background-color: rgba(168,85,247,0.08) !important; }
+
+/* Borders */
+.theme-light .border-slate-800,
+.theme-light .border-slate-700,
+.theme-light .border-slate-600 {
+  border-color: #e5e7eb !important;
+}
+
+/* Text colors */
+.theme-light .text-white { color: #111827 !important; }
+.theme-light .text-gray-400 { color: #6b7280 !important; }
+.theme-light .text-gray-300 { color: #374151 !important; }
+.theme-light .text-gray-500 { color: #6b7280 !important; }
+
+/* Common gradient card containers */
+.theme-light .bg-gradient-to-br.from-slate-800.to-slate-900,
+.theme-light .bg-gradient-to-br.from-slate-700.to-slate-800,
+.theme-light .bg-gradient-to-br.from-gray-900.to-gray-900 {
+  background-image: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Hover states */
+.theme-light .hover\:bg-slate-700:hover { background-color: #e5e7eb !important; }
+.theme-light .hover\:bg-slate-600:hover { background-color: #e5e7eb !important; }
+
+/* Inputs */
+.theme-light input, .theme-light select, .theme-light textarea {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+/* Charts grid lines */
+.theme-light .recharts-cartesian-grid-horizontal line,
+.theme-light .recharts-cartesian-grid-vertical line {
+  stroke: #e5e7eb !important;
+}
+
+/* Elevation */
+.theme-light .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -2px rgba(0,0,0,.05) !important; }
+
+/* ----------------------------------------
+   Dark mode animated background (additive)
+   ---------------------------------------- */
+html.dark body::before {
+  content: "";
+  position: fixed;
+  inset: -15%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--sm-dark-anim-opacity);
+  filter: blur(var(--sm-dark-anim-blur)) saturate(var(--sm-dark-anim-saturation));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 120% 120%, 120% 120%, 120% 120%;
+  background-image:
+    radial-gradient(40% 35% at 15% 25%, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0) 60%),
+    radial-gradient(35% 30% at 85% 20%, rgba(168,85,247,0.30) 0%, rgba(168,85,247,0) 60%),
+    radial-gradient(45% 40% at 50% 85%, rgba(16,185,129,0.28) 0%, rgba(16,185,129,0) 60%);
+  animation: smartmeter-dark-drift var(--sm-dark-anim-speed) ease-in-out infinite alternate;
+  will-change: background-position;
+}
+
+@keyframes smartmeter-dark-drift {
+  0% {
+    background-position: 16% 22%, 84% 18%, 48% 82%;
+  }
+  50% {
+    background-position: 18% 28%, 80% 24%, 45% 86%;
+  }
+  100% {
+    background-position: 20% 20%, 78% 28%, 52% 80%;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html.dark body::before {
+    animation: none;
+  }
+}
+
+/* A more visible, additive glow overlay anchored to the app root. */
+html.dark #root { position: relative; }
+html.dark #root::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: 0; /* sit behind main content */
+  pointer-events: none;
+  opacity: var(--sm-dark-anim-overlay-opacity);
+  mix-blend-mode: screen;
+  filter: blur(40px) saturate(120%);
+  background-repeat: no-repeat;
+  background-size: 110% 110%, 110% 110%, 110% 110%;
+  background-image:
+    radial-gradient(38% 30% at 18% 28%, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0) 60%),
+    radial-gradient(34% 26% at 82% 24%, rgba(168,85,247,0.42) 0%, rgba(168,85,247,0) 60%),
+    radial-gradient(42% 34% at 52% 82%, rgba(16,185,129,0.36) 0%, rgba(16,185,129,0) 60%);
+  animation: smartmeter-dark-float var(--sm-dark-anim-speed) ease-in-out infinite alternate-reverse;
+}
+
+@keyframes smartmeter-dark-float {
+  0%   { background-position: 14% 26%, 86% 22%, 50% 84%; }
+  33%  { background-position: 16% 30%, 82% 28%, 48% 86%; }
+  66%  { background-position: 18% 24%, 80% 26%, 54% 82%; }
+  100% { background-position: 16% 28%, 78% 30%, 50% 80%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.dark #root::after { animation: none; }
+}
+
+/* Wavy line effect under the overlay, moving horizontally */
+html.dark #root::before {
+  content: "";
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: 0;
+  z-index: 0; /* sit behind main content */
+  pointer-events: none;
+  opacity: var(--sm-dark-wave-opacity);
+  mix-blend-mode: screen;
+  filter: blur(10px) saturate(120%);
+  background-repeat: repeat-x, repeat-x, repeat-x;
+  background-size:
+    1800px 360px,
+    1600px 300px,
+    1400px 260px;
+  background-position:
+    0% 18%,
+    0% 50%,
+    0% 84%;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1800 360' preserveAspectRatio='none'><defs><linearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%233b82f6'/><stop offset='50%25' stop-color='%23a855f7'/><stop offset='100%25' stop-color='%2310b981'/></linearGradient></defs><path d='M0 150 C 240 80 480 140 720 120 C 960 100 1200 160 1440 140 C 1640 126 1800 170 1800 170 L 1800 360 L 0 360 Z' fill='url(%23g1)' fill-opacity='0.28'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 300' preserveAspectRatio='none'><defs><linearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%23a855f7'/><stop offset='50%25' stop-color='%2310b981'/><stop offset='100%25' stop-color='%233b82f6'/></linearGradient></defs><path d='M0 120 C 220 70 440 130 660 110 C 880 90 1100 150 1320 130 C 1480 118 1600 150 1600 150 L 1600 300 L 0 300 Z' fill='url(%23g2)' fill-opacity='0.24'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 260' preserveAspectRatio='none'><defs><linearGradient id='g3' x1='0%25' y1='0%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%2310b981'/><stop offset='50%25' stop-color='%233b82f6'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><path d='M0 110 C 200 60 350 120 560 100 C 780 85 980 140 1200 120 C 1320 110 1400 135 1400 135 L 1400 260 L 0 260 Z' fill='url(%23g3)' fill-opacity='0.22'/></svg>");
+  animation: smartmeter-wave var(--sm-dark-wave-speed) linear infinite;
+}
+
+@keyframes smartmeter-wave {
+  0%   { background-position: 0% 15%,   0% 55%,   0% 85%; }
+  100% { background-position: 200% 15%, 150% 55%, 100% 85%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.dark #root::before { animation: none; }
+}
+
+/* Ensure all app content paints above decorative layers */
+html.dark #root > * {
+  position: relative;
+  z-index: 1;
+}

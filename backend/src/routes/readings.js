@@ -44,7 +44,10 @@ router.post(
       deviceId: req.device.id,
       payload,
     });
-    bus.emit('reading:new', reading);
+    bus.emit('reading:new', {
+      reading,
+      userId: req.device.user_id,
+    });
     res.status(201).json({ reading });
   }),
 );

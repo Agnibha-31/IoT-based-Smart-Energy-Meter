@@ -156,12 +156,13 @@ Settings bring language, location, time zone, currency, tariff, display, refresh
 
 ## Recorded project dataset
 
-The repository includes [`Smart Meter Domestic Dataset.csv`](Smart%20Meter%20Domestic%20Dataset.csv), containing **5,000 ordered readings** from project meter `meter-001`. The file covers electrical behaviour, energy accumulation, tariff periods, cost, load state, timestamps, and recording context.
+The repository includes [`Smart Meter Domestic Dataset.csv`](Smart%20Meter%20Domestic%20Dataset.csv), containing **5,000 ordered readings** from project meter `meter-001`. The file covers electrical behaviour, energy accumulation, tariff periods, cost, load state, timestamps, and recording context. Every record contains valid JSON metadata identifying the source as `recorded_system`, together with the single-phase configuration, `IN-WB` location, and 60-second sampling interval.
 
 ### Dataset snapshot
 
 | Property | Verified value |
 |---|---:|
+| Metadata source | `recorded_system` in all 5,000 readings |
 | Records | 5,000 |
 | Columns | 20 |
 | Sampling interval | 60 seconds |
@@ -227,7 +228,7 @@ pie showData
 | `instant_cost_inr` | Cost associated with that interval |
 | `load_state` | Base Load, Normal, or High classification |
 | `quality_flag` | Quality/status label for the reading |
-| `metadata` | Compact recording context such as phase, location, and sample interval |
+| `metadata` | JSON recording context containing the source (`recorded_system`), phase (`single`), location (`IN-WB`), and sampling interval (`60` seconds) |
 
 </details>
 

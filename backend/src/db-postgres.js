@@ -161,7 +161,6 @@ const run = async (sql, params = []) => {
   } catch (error) {
     console.error('❌ Database query error:', error);
     console.error('SQL:', sql);
-    console.error('Params:', params);
     throw error;
   } finally {
     client.release();
@@ -178,7 +177,6 @@ const all = async (sql, params = []) => {
   } catch (error) {
     console.error('❌ Database query error:', error);
     console.error('SQL:', sql);
-    console.error('Params:', params);
     throw error;
   } finally {
     client.release();
@@ -195,7 +193,6 @@ const get = async (sql, params = []) => {
   } catch (error) {
     console.error('❌ Database query error:', error);
     console.error('SQL:', sql);
-    console.error('Params:', params);
     throw error;
   } finally {
     client.release();

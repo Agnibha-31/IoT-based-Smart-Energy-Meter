@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { asyncHandler } from '../middleware/asyncHandler.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth, requireAdmin } from '../middleware/auth.js';
 import {
   issueToken,
   sanitizeUser,
@@ -169,10 +169,9 @@ router.delete(
 // Get user statistics (developer/admin endpoint - no auth required for monitoring)
 router.get(
   '/user-stats',
+  requireAuth,
+  requireAdmin,
   asyncHandler(async (req, res) => {
-    // Add CORS headers for direct browser access
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET');
     
     const { db } = await import('../db-postgres.js');
     

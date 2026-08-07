@@ -6,8 +6,9 @@
  * Backend API: http://your-ip:5000
  */
 
-#define BLYNK_TEMPLATE_ID "TMPL3pH2O7bem"
-#define BLYNK_TEMPLATE_NAME "IOT SMART METER"
+// ===== CREATE OWN BLYNK DASHBOARD AND GENERATE THE CREDENTIALS =====
+#define BLYNK_TEMPLATE_ID "********"
+#define BLYNK_TEMPLATE_NAME "********"
 #define BLYNK_PRINT Serial
 
 #include <HTTPClient.h> 
@@ -23,16 +24,16 @@ EnergyMonitor emon;
 #define currCalibration 0.17  // increase => current value increases, decreases => current value decreases [0.11-0.2]
 
 // ===== WiFi CREDENTIALS =====
-char ssid[] = "AGNIBHA";              // Your WiFi network name
-char pass[] = "basak31122003";        // Your WiFi password
+char ssid[] = "********";              // Your WiFi network name
+char pass[] = "********";        // Your WiFi password
 
 // ===== BLYNK CREDENTIALS =====
-char auth[] = "Urv1KvBvI7sIfqSaOQNBo0yJGLrL-cFd";  // Blynk auth token
+char auth[] = "********";  // Blynk auth token
 
 // ===== BACKEND API CONFIGURATION =====
 // Cloud Backend - Accessible from anywhere in the world!
-const char* serverURL = "https://iot-based-smart-meter-dashboard-backend.onrender.com/api/readings";
-const char* deviceAPIKey = "d78ef9ae-358d-48eb-a341-0943be046efe";  // From backend .env
+const char* serverURL = "********";
+const char* deviceAPIKey = "********";  // From backend .env
 
 // Alternative: Local Testing (when ESP32 and laptop on same network)
 // const char* serverURL = "http://192.168.0.10:5000/api/readings";  // Local IP

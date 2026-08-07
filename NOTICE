@@ -1,0 +1,109 @@
+Smart Meter IoT
+Copyright 2026 Agnibha Basak
+
+This NOTICE file identifies the licensing scope and attribution information for
+the Smart Meter IoT repository. It is informational and does not replace or
+modify any license text.
+
+Project source location:
+https://github.com/Agnibha-31/Smart-Meter-IoT
+
+1. SOFTWARE, FIRMWARE, AND PROJECT DOCUMENTATION
+
+Except for the dataset, hardware-design materials, and third-party materials
+identified below, the software, firmware, configuration, and original project
+documentation in this repository are licensed under the Apache License,
+Version 2.0, contained in the root LICENSE file.
+
+This scope includes, without limitation:
+
+  - src/
+  - backend/
+  - scripts/
+  - System Code.ino
+  - README.md
+
+Copyright 2026 Agnibha Basak.
+
+2. DATASET
+
+The following file is licensed under the Creative Commons Attribution 4.0
+International Public License (CC BY 4.0), contained in LICENSE-DATA:
+
+  - Smart Meter Domestic Dataset.csv
+
+Suggested attribution:
+
+  "Smart Meter Domestic Dataset," Agnibha Basak, Smart Meter IoT, 2026,
+  licensed under CC BY 4.0.
+  https://github.com/Agnibha-31/Smart-Meter-IoT
+
+If the dataset is modified, the user must identify that changes were made and
+must not imply endorsement by the original author.
+
+3. HARDWARE DESIGN AND FABRICATION MATERIALS
+
+To the extent that Agnibha Basak owns the applicable rights, the following
+hardware-design materials are licensed under the CERN Open Hardware Licence
+Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0), contained in
+LICENSE-HARDWARE:
+
+  - Circuit Image.png
+  - Circuit Scematic.png
+  - PCB.png
+  - PCB Fabrication/
+
+Licensor: Agnibha Basak
+Source Location: https://github.com/Agnibha-31/Smart-Meter-IoT
+
+The repository currently includes generated Gerber and drill outputs and a
+KiCad local project settings file. Editable KiCad schematic and PCB design
+sources are not included in the audited repository snapshot. They should be
+added when available so recipients receive the preferred form for studying and
+modifying the hardware design.
+
+The hardware license grants permissions; it does not certify electrical safety,
+regulatory compliance, calibration accuracy, manufacturability, or fitness for
+connection to mains voltage.
+
+Circuit Image.png is a composite containing photographs or renders of
+commercial modules and electrical products. If any embedded image was obtained
+from a third party, that third-party image is not relicensed by this NOTICE.
+The author should record its source and license or replace it with an original
+photograph or drawing before claiming that the complete composite is open
+hardware documentation.
+
+4. THIRD-PARTY MATERIALS AND DEPENDENCIES
+
+Third-party components remain under their own licenses. They are not relicensed
+by the files above. Relevant examples include:
+
+  - EmonLib by OpenEnergyMonitor, referenced by System Code.ino. The library is
+    not vendored here. Review and comply with the license notices in the exact
+    upstream version used when building or distributing firmware.
+  - The Blynk C++ library, referenced by System Code.ino, is distributed by its
+    authors under the MIT License. The library is not vendored here.
+  - Espressif's Arduino-ESP32 core and bundled WiFi/HTTPClient components are
+    governed by their upstream license notices and are not vendored here.
+  - React, Express, PostgreSQL client libraries, charting libraries, Radix UI,
+    shadcn/ui-derived components, icons, and other npm packages are governed by
+    the licenses recorded by their upstream projects and package metadata.
+    In particular, portions of src/components/ui/ may be derived from
+    shadcn/ui and remain subject to its MIT terms.
+  - src/Attributions.md records the existing shadcn/ui and Unsplash attribution
+    statements supplied with the frontend source.
+
+Users who distribute compiled applications, firmware binaries, modified
+third-party components, or hardware products are responsible for satisfying all
+applicable upstream notice and source-availability obligations.
+
+5. TRADEMARKS, SAFETY, AND ENDORSEMENT
+
+Names and trademarks of CERN, Creative Commons, Espressif, Blynk,
+OpenEnergyMonitor, GitHub, Vercel, Render, and other third parties belong to
+their respective owners. No endorsement is implied.
+
+This project is provided without warranty. Work involving mains electricity
+must be reviewed, assembled, enclosed, tested, and commissioned by a suitably
+qualified electrical professional using applicable isolation, over-current
+protection, clearances, creepage distances, earthing, and local regulations.

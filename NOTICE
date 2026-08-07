@@ -6,7 +6,7 @@ the Smart Meter IoT repository. It is informational and does not replace or
 modify any license text.
 
 Project source location:
-https://github.com/Agnibha-31/Smart-Meter-IoT
+https://github.com/Agnibha-31/IoT-based-Smart-Energy-Meter
 
 1. SOFTWARE, FIRMWARE, AND PROJECT DOCUMENTATION
 
@@ -36,7 +36,7 @@ Suggested attribution:
 
   "Smart Meter Domestic Dataset," Agnibha Basak, Smart Meter IoT, 2026,
   licensed under CC BY 4.0.
-  https://github.com/Agnibha-31/Smart-Meter-IoT
+  https://github.com/Agnibha-31/IoT-based-Smart-Energy-Meter
 
 If the dataset is modified, the user must identify that changes were made and
 must not imply endorsement by the original author.
@@ -54,7 +54,7 @@ LICENSE-HARDWARE:
   - PCB Fabrication/
 
 Licensor: Agnibha Basak
-Source Location: https://github.com/Agnibha-31/Smart-Meter-IoT
+Source Location: https://github.com/Agnibha-31/IoT-based-Smart-Energy-Meter
 
 The repository currently includes generated Gerber and drill outputs and a
 KiCad local project settings file. Editable KiCad schematic and PCB design
